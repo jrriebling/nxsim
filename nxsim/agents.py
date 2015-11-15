@@ -229,6 +229,7 @@ class BaseLoggingAgent(BaseAgent):
         while True:
             nodes = self.global_topology.nodes(data=True)
             self.state_history[self.env.now] = {i: deepcopy(node[1]['agent'].state) for i, node in enumerate(nodes)}
+            self.state_history[self.env.now].update({'edges': self.global_topology.edges()})
             yield self.env.timeout(self.interval)
 
     def save_trial_state_history(self, trial_id=0):
